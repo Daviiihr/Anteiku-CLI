@@ -637,11 +637,11 @@ jobs:
 
 ### M1 — Snapshot en texto (MVP)
 
-- [ ] Definir `model.rs` con `Snapshot` y structs asociados.
-- [ ] Trait `Collector` e implementación con `sysinfo` (refrescos selectivos y espera inicial `MINIMUM_CPU_UPDATE_INTERVAL` para evitar `0.0%`).
-- [ ] `util.rs`: formateo de bytes (`1.2 GB`), porcentajes y duraciones, con tests.
-- [ ] CLI con `clap`: `anteiku snapshot` y `anteiku snapshot --json`.
-- [ ] Mostrar CPU, RAM, disco, red y top 5 procesos en texto.
+- [x] Definir `model.rs` con `Snapshot` y structs asociados.
+- [x] Trait `Collector` e implementación con `sysinfo` (refrescos selectivos y espera inicial `MINIMUM_CPU_UPDATE_INTERVAL` para evitar `0.0%`).
+- [x] `util.rs`: formateo de bytes (`1.2 GB`), porcentajes y duraciones, con tests.
+- [x] CLI con `clap`: `anteiku snapshot` y `anteiku snapshot --json`.
+- [x] Mostrar CPU, RAM, disco, red y top 5 procesos en texto.
 - **Aprendizaje:** structs, enums, `Option`/`Result`, traits, módulos, `serde`.
 - **Criterio de aceptación:** `anteiku snapshot` muestra datos correctos comparados con `htop`/`free`/`df`; `--json` es válido.
 
@@ -770,6 +770,14 @@ jobs:
 - Conceptos de Rust aprendidos: estructura de un proyecto Cargo (`Cargo.toml`, `Cargo.lock`), `cargo fmt`, `cargo clippy` y `cargo test`.
 - Problemas abiertos: comprobar ejecución del workflow de CI en GitHub tras hacer push de la PR.
 - Próximo paso: Hito M1 — Snapshot en texto (MVP) en rama `feat/m1-snapshot`.
+
+### Sesión 02 — 2026-11-18
+- Hito: M1
+- Hecho: implementados `error.rs` (`CollectorError` con `thiserror`), `model.rs` (`Snapshot` y structs con `serde::Serialize`), `util.rs` (formateo + 4 tests unitarios), `collector/` (`Collector` + `SystemCollector` con `sysinfo 0.40.4`), `cli.rs` (`clap`) y `main.rs` (`snapshot [--json]`).
+- Decisiones nuevas: usar `CollectorError` como nombre del enum de errores de recolección; adaptar llamadas a la API de `sysinfo 0.40.4` (`Result` en constructores y `System::name`/`uptime`, `Cpu::usage()`).
+- Conceptos de Rust aprendidos: `thiserror`, `#[derive(Serialize, Parser, Subcommand)]`, `Option`/`Result`, traits (`Collector`), `#[cfg(test)]` y tests unitarios.
+- Problemas abiertos: ninguno.
+- Próximo paso: Hito M2 — Procesos, errores y pruebas (`anteiku top`, `FakeCollector`, tests con `assert_cmd`) en rama `feat/m2-procesos-pruebas`.
 
 ---
 
